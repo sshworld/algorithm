@@ -1,46 +1,39 @@
 
-def find(a, edges, n) :
-
-    if a == [0 for _ in range(len(a))] :
-        return 0
-
-    ret = 0
-
-    for i in range(len(edges)):
-
-
-        n += 1
-        ret += find(a, edges, n)
-
-    return ret
-
 def solution(a, edges):
     
 
-    answer = find(a, edges, 0)
+    if sum(a) :
+        return -1
+
+    tree = [list() for i in range(len(a))]
+
+    visited = [0] * len(a)
+
+    for i in range(len(edges)) :
+        tree[edges[i][0]].append(edges[i][1])
+        tree[edges[i][1]].append(edges[i][0])
+
+    global answer
+    answer = 0
         
-    return answer
+    def find(node) :
+    
+        global answer
+        if visited[node] :
+            return 0
 
+        visited[node] = 1
 
+        for i in range(len(tree[node])) :
+            a[node] += find(tree[node][i])
+        
+        son = a[node]
+        a[node] = 0
+        answer += abs(son)
+        return son
 
-    # an = sorted(edges)
+    find(0)
+    if not a[0] :
+        return answer
 
-    # dp = [0 for _ in range(len(a))]
-
-    # for x, y in an :
-    #     if dp[x] == 0 and dp[y] == 0 :
-    #         dp[x] += 1
-    #         dp[y] += 1
-    #     elif dp[x] == 0 and dp[y] > 0 :
-    #         if max(dp) == dp[y] :
-    #             dp[y] += 1
-    #         dp[x] = dp[y] + 1
-    #     elif dp[y] == 0 and dp[x] > 0 :
-    #         if max(dp) == dp[x] :
-    #             dp[x] += 1
-    #         dp[y] = dp[x] + 1
-    #     print(dp)
-
-    # print(dp.index(max(dp)))
-
-    # # for i in range(len(edges)) :
+    return -1
