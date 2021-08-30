@@ -15,7 +15,7 @@ def linearSearch(arr, target) :
     return "Fail"
 
 def binarySearch(arr, target) :
-    arr.copy()
+    arr.sort()
     length = len(arr)
 
     left = 0
@@ -38,7 +38,7 @@ def jumpSearch(arr, target) :
     arr.sort()
     length = len(arr)
     interval = int(float(math.sqrt(length)))
-    
+
     for i in range(0, length, interval) :
         if arr[i] == target :
             return i
